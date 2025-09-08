@@ -1,3 +1,40 @@
+## Automated Testing with Playwright
+
+This repository includes an automated test suite for the Snake Game using **Playwright** with a Page Object Model (POM).
+The test coverage ensures key aspects of the game work as expected:
+
+- UI load & controls visibility
+- Start / Pause / Reset flows
+- Game Over screen (score + replay functionality)
+- High score persistence across resets (via localStorage)
+- Deterministic food‑eating test (injects food in front of snake, requires one small change to game.js: window.\_\_snakeGame = game;)
+
+# Running the Test
+
+Install Playwright Browsers
+
+```bash
+npx playwright install
+```
+
+Run Tests Headless
+
+```bash
+npx playwright test
+```
+
+Run Tests Headed
+
+```bash
+npx playwright test
+```
+
+View Report
+
+```bash
+npx playwright testshow-report
+```
+
 # Snake Game 🐍
 
 A classic Snake game built with Node.js and HTML5 Canvas, featuring modern web technologies and a clean, responsive design.
@@ -16,22 +53,26 @@ A classic Snake game built with Node.js and HTML5 Canvas, featuring modern web t
 ## Installation
 
 1. Clone the repository:
+
 ```bash
-git clone git@github.com:josephvouch/vouch_snake.git
-cd vouch_snake
+git clone https://github.com/ediologi/playwright-vouch_snake.git
+cd playwright-vouch_snake
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Start the server:
+
 ```bash
 npm start
 ```
 
 4. Open your browser and navigate to:
+
 ```
 http://localhost:3456
 ```
@@ -46,12 +87,12 @@ http://localhost:3456
 
 ## Game Controls
 
-| Key | Action |
-|-----|--------|
-| ↑ / W | Move Up |
-| ↓ / S | Move Down |
-| ← / A | Move Left |
-| → / D | Move Right |
+| Key   | Action       |
+| ----- | ------------ |
+| ↑ / W | Move Up      |
+| ↓ / S | Move Down    |
+| ← / A | Move Left    |
+| → / D | Move Right   |
 | Space | Pause/Resume |
 
 ## Technical Stack
@@ -65,13 +106,20 @@ http://localhost:3456
 
 ```
 snake/
-├── server.js           # Express server
-├── package.json        # Node dependencies
 ├── public/
 │   ├── index.html     # Game HTML structure
 │   ├── styles.css     # Game styling
 │   └── game.js        # Game logic and mechanics
-└── README.md          # This file
+├── tests/
+│   ├── e2e/
+│   │   └── snake_game.spec.ts   # main test suite
+│   ├── pages/
+│   │   └── SnakeGamePage.ts     # Page Object
+│   └── types/
+│       └── global.d.ts          # (optional window typings)
+├── server.js           # Express server
+├── package.json        # Node dependencies
+└── README.md           # This file
 ```
 
 ## Game Mechanics
@@ -103,9 +151,10 @@ To modify the game:
 
 MIT License - Feel free to use and modify as needed.
 
-## Contributing
+## Attribution
 
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
+- Original Snake Game project authored by: josephvouch/vouch_snake
+- Playwright test suite, Page Object Model, and test enhancements for automation created by ediologi for the Vouch automation assessment.
 
 ## Author
 

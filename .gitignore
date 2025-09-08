@@ -30,3 +30,9 @@ build/
 # Package lock files (optional - uncomment if you prefer not to commit)
 # package-lock.json
 # yarn.lock
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
