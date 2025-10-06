@@ -16,6 +16,8 @@ class SnakeGame {
     this.gamePaused = false;
     this.gameSpeed = 100;
     this.gameLoop = null;
+    this.wallPasses = 0;
+    this.maxWallPasses = 3;
 
     this.init();
   }
@@ -111,6 +113,7 @@ class SnakeGame {
     this.gameSpeed = 100;
     this.gameRunning = false;
     this.gamePaused = false;
+    this.wallPasses = 0;
 
     this.generateFood();
     this.updateScore();
@@ -170,8 +173,15 @@ class SnakeGame {
       head.y < 0 ||
       head.y >= this.tileCount
     ) {
-      this.gameOver();
-      return;
+      if (head.x < 0) {
+        if (!this.tryWrap(head, "x", this.tileCount - 1)) return;
+      } else if (head.x >= this.tileCount) {
+        if (!this.tryWrap(head, "x", 0)) return;
+      } else if (head.y < 0) {
+        if (!this.tryWrap(head, "y", this.tileCount - 1)) return;
+      } else if (head.y >= this.tileCount) {
+        if (!this.tryWrap(head, "y", 0)) return;
+      }
     }
 
     // Check self collision
@@ -408,6 +418,17 @@ class SnakeGame {
 
   hideGameOver() {
     document.getElementById("gameOver").classList.remove("show");
+  }
+
+  tryWrap(head, axis, value) {
+    if (this.wallPasses >= this.maxWallPasses) {
+      this.gameOver();
+      return false;
+    }
+
+    head[axis] = value;
+    this.wallPasses += 1;
+    return true;
   }
 }
 
